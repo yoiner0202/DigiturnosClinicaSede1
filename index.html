@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DigiTurnos - Sistema de Turnos Digital</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Customer View -->
+    <div id="customer-view" class="view active">
+        <div class="min-h-screen bg-gradient-to-br from-blue-50 to-white">
+            <div class="container mx-auto px-4 py-8">
+                <!-- Header -->
+                <div class="text-center mb-8">
+                    <!-- Logo de la clínica -->
+                    <div class="img">
+                        <img src="img/logoclinicatorcoroma.png" 
+                             alt="Clínica y Droguería Nuestra Señora de Torcoroma S.A.S" 
+                             class="mx-auto max-h-[160px] w-auto object-contain">
+                    </div>
+                    <h1 class="text-6xl font-bold text-blue-900 mb-2">DigiTurnos</h1>
+                    <p class="text-gray-600 mt-2">Sistema de turnos digitales</p>
+                    <p class="text-gray-600 mt-2">Sede Clinica 1</p>
+                </div>
+
+                <!-- Service Selection -->
+                <div class="max-w-md mx-auto mb-8">
+                    <h3 class="text-lg font-semibold mb-4 text-center">Selecciona tu servicio:</h3>
+                    <div id="services-grid" class="grid grid-cols-1 gap-3">
+                        <!-- Services will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Generate Ticket Button -->
+                <div class="max-w-md mx-auto mb-8">
+                    <button id="generate-ticket-btn" class="w-full bg-green-600 hover:bg-green-700 text-white py-4 px-6 rounded-lg text-xl font-semibold transition-colors flex items-center justify-center space-x-2">
+                        <span class="icon-plus">+</span>
+                        <span>Tomar Turno</span>
+                    </button>
+                </div>
+
+                <!-- Last Ticket Display -->
+                <div id="last-ticket-display" class="max-w-md mx-auto mb-8 bg-white rounded-lg shadow-lg p-6 border-l-4 border-green-500 hidden">
+                    <div class="text-center">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-2">Tu turno:</h3>
+                        <div id="ticket-number" class="text-4xl font-bold text-green-600 mb-2"></div>
+                        <p id="ticket-service" class="text-gray-600"></p>
+                        <p id="ticket-time" class="text-sm text-gray-500 mt-2"></p>
+                        <button id="print-ticket-btn" class="mt-4 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center space-x-2 mx-auto">
+                            <span class="icon-printer">🖨️</span>
+                            <span>Imprimir Ticket</span>
+                        </button>
+                    </div>
+                </div>
+                        <div class="mp4">
+                        <video src="video/robot3.mp4" autoplay loop muted class="mx-auto max-h-[400px] w-auto object-contain"></video>
+                        </div>
+                <!-- Navigation -->
+                <div class="flex justify-center space-x-4 mt-8">
+                    <button id="display-view-btn" class="bg-gray-800 hover:bg-gray-900 text-white px-4 py-2 rounded-lg flex items-center space-x-2">
+                        <span class="icon-tv">📺</span>
+                        <span>Panel de Llamado</span>
+                    </button>
+                    <button id="staff-view-btn" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center space-x-2">
+                        <span class="icon-monitor">🖥️</span>
+                        <span>Administración</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Display View -->
+    <div id="display-view" class="view">
+        <div class="min-h-screen bg-gray-900 text-white">
+            <div class="container mx-auto px-8 py-6">
+                <!-- Header -->
+                <div class="text-center mb-8">
+                    <h1 class="text-5xl font-bold mb-2">CLÍNICA TORCOROMA</h1>
+                    <h2 class="text-3xl text-blue-400">Sistema de Turnos Digital</h2>
+                    <div id="current-datetime" class="text-xl mt-4"></div>
+                </div>
+
+                <!-- Current Calls Display -->
+                <div id="current-calls-grid" class="grid grid-cols-2 gap-8 mb-8">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+
+                <!-- Last Called Tickets -->
+                <div class="bg-gray-800 rounded-lg p-6 mb-6">
+                    <h3 class="text-2xl font-bold mb-4 text-center">Últimos Turnos Llamados</h3>
+                    <div id="last-called-tickets" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+                        <!-- Will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Waiting Statistics -->
+                <div id="waiting-stats" class="grid grid-cols-4 gap-6">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+
+                <!-- Back Button -->
+                <div class="text-center mt-8">
+                    <button id="back-to-customer-btn" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg">
+                        Volver al Inicio
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Staff View -->
+    <div id="staff-view" class="view">
+        <div class="min-h-screen bg-gray-100">
+            <div class="container mx-auto px-4 py-8">
+                <!-- Header -->
+                <div class="flex justify-between items-center mb-8">
+                    <div class="flex items-center">
+                        <!-- Logo de la clínica -->
+                        <img src="img/logoclinicatorcoroma.png" 
+                             alt="Clínica y Droguería Nuestra Señora de Torcoroma S.A.S" 
+                             class="h-[110px] w-auto object-contain mr-4">
+                        <div>
+                            <h1 class="text-3xl font-bold text-gray-900">Panel de Administración</h1>
+                            <p class="text-gray-600">Clínica Torcoroma - Control de Ventanillas</p>
+                        </div>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button id="display-view-btn-2" class="bg-gray-800 hover:bg-gray-900 text-white px-4 py-2 rounded-lg flex items-center space-x-2">
+                            <span class="icon-tv">📺</span>
+                            <span>Panel Display</span>
+                        </button>
+                        <button id="customer-view-btn" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg">
+                            Vista Cliente
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Ventanillas Control -->
+                <div id="ventanillas-control" class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+
+                <!-- Queue Status -->
+                <div id="queue-status" class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+
+                <!-- Statistics -->
+                <div id="statistics" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Audio element for text-to-speech fallback -->
+    <audio id="notification-sound" preload="auto">
+        <source src="notification.mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
